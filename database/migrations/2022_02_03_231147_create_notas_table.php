@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 class CreateNotasTable extends Migration
 {
     /**
@@ -18,7 +19,7 @@ class CreateNotasTable extends Migration
             $table->string('titulo');
             $table->string('contenido');
             $table->biginteger('users_id');
-            $table->foreing('users_id')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

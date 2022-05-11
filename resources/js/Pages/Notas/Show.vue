@@ -19,6 +19,9 @@
                         <p>{{ nota.titulo }}</p>
                     <p>Contenido</p>
                         <p>{{ nota.contenido }}</p>
+
+                    <p>Categoria</p>
+                        <p>{{ nota.category_name }}</p>
                 </div>
             </div>
         </div>

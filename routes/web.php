@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\CategoryController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,20 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+
+    $news_by_category = DB::table('notas')
+        ->join('categories', 'notas.categories_id', "=", 'categories.id')
+        ->where('users_id', Auth::id())
+        ->select(DB::raw('category_name, count(categories.id) as total'))
+        ->groupBy('category_name','categories.id')
+        ->orderBy('total','desc')
+        ->get();
+
+
+    return Inertia::render('Dashboard', [
+         'news_by_category' => $news_by_category
+    ]);
+
 })->name('dashboard');
 
 Route::resource('noticias', NotaController::class);
